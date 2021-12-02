@@ -1,41 +1,68 @@
 using System.Diagnostics;
 using System.Reflection;
+using System.Text.RegularExpressions;
 
-var daysImplemented = Assembly.GetExecutingAssembly()
+using AdventOfCode2021;
+
+var solutionClassRegex = new Regex(@"^Day(\d{2})Part(\d)$");
+
+string GetInputFile(Type type) => solutionClassRegex!.Replace(type.Name, "data/day$1/input");
+
+var solutions = Assembly.GetExecutingAssembly()
     .GetTypes()
-    .Where(_ => _.Namespace == "AdventOfCode2021.Days" && _.GetMethod("Execute", BindingFlags.Public|BindingFlags.Static) != null)
-    .ToDictionary(_ => _.Name.ToLower());
+    .Where(type => type.IsClass
+        && !type.IsAbstract
+        && type.IsAssignableTo(typeof(ISolution)))
+    .ToDictionary(type => type.Name.ToLower());
 
-var implementedSet = daysImplemented.Keys.ToHashSet();
-var unknownArgs = args.ToHashSet().Except(implementedSet);
+var solutionSet = solutions.Keys.ToHashSet();
+var unknownArgs = args.ToHashSet().Except(solutionSet);
 
 if (unknownArgs.Any())
 {
-    Console.Error.WriteLine($"Unrecognized argument{ (unknownArgs.Count() > 1 ? "s" : "") }: { string.Join(", ", unknownArgs) }, please choose from these: { string.Join(", ", implementedSet.OrderBy(_ => _)) }!");
-    Environment.Exit(1);
+    Console.Error.WriteLine($"Unrecognized argument{ (unknownArgs.Count() > 1 ? "s" : "") }: { string.Join(", ", unknownArgs) }, please choose from these: { string.Join(", ", solutionSet.OrderBy(_ => _)) }!");
+
+    return 1;
 }
 
 var daysToExecute = args.Any()
-    ? implementedSet.Intersect(args).ToArray()
-    : daysImplemented.Keys.ToArray();
+    ? solutionSet.Intersect(args).ToArray()
+    : solutions.Keys.ToArray();
 
 foreach (var day in daysToExecute.OrderBy(_ => _))
 {
-    Debug.WriteLine($"Executing {day}.");
-    var r = daysImplemented[day].GetMethod("Execute")?.Invoke(null, new object?[0]);
+    var solutionClass = solutions[day];
 
-    if (r is Task<string> task)
+    Debug.WriteLine($"Reading input for {day}.");
+
+    var inputFile = GetInputFile(solutionClass);
+
+    if (!File.Exists(inputFile))
     {
-        var errorMessageResult = await task;
+        Console.Error.WriteLine($"Input file for { day }: { inputFile } not found!");
+        return 2;
+    }
 
-        if (errorMessageResult is string errorMessage)
-        {
-            Console.Error.WriteLine(errorMessage);
-            Environment.Exit(2);
-        }
-        else
-        {
-            Debug.WriteLine($"{day} executed.");
-        }
+    var input = await File.ReadAllLinesAsync(inputFile);
+
+    Debug.WriteLine($"Executing {day}.");
+#nullable disable
+    var solution = (ISolution)Activator.CreateInstance(solutionClass);
+#nullable restore
+
+    try
+    {
+        var result = solution!.Apply(input);
+
+        Console.WriteLine(result);
+
+        Debug.WriteLine($"Executing {day} was a success.");
+    }
+    catch (Exception e)
+    {
+        Console.Error.WriteLine($"Error while executing { day }: { e }");
+        return 3;
     }
 }
+
+return 0;
