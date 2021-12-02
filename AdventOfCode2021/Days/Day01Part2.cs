@@ -6,7 +6,7 @@ namespace AdventOfCode2021.Days
     {
         public static async Task<string?> Execute()
         {
-            const string DataFilePath = "data/day1/input";
+            const string DataFilePath = "data/day01/input";
             var file = new FileInfo(DataFilePath);
 
             if (!file.Exists)
