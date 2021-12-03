@@ -4,10 +4,37 @@ namespace AdventOfCode2021.Days
     {
         public override int Apply(string[] input)
         {
-            var wordLength = input[0].Length;
+            var commonBits = GetMostCommonBits(input);
+
+            var gammaRate = ToInt(commonBits.Select(_ => _!.Value));
+            var epsilonRate = ToInt(commonBits.Select(_ => !_!.Value));
+
+            var result = gammaRate * epsilonRate;
+
+            return result;
+        }
+
+        public static int ToInt(IEnumerable<bool> commonBits)
+        {
+            var result = 0;
+
+            foreach (var actualBitIsOne in commonBits)
+            {
+                result *= 2;
+
+                if (actualBitIsOne) result++;
+            }
+
+            return result;
+        }
+
+        public static bool?[] GetMostCommonBits(IEnumerable<string> lines, bool? defaultIsOne = null)
+        {
+            var lineCount = lines.Count();
+            var wordLength = lines.First().Length;
             var oneCounts = new int[wordLength];
 
-            foreach(var line in input)
+            foreach(var line in lines)
             {
                 for(var i = 0; i < wordLength; ++i)
                 {
@@ -15,19 +42,12 @@ namespace AdventOfCode2021.Days
                 }
             }
 
-            var gammaRate = 0;
-            var epsilonRate = 0;
+            var result = new bool?[wordLength];
 
             for(var i = 0; i < wordLength; ++i)
             {
-                gammaRate *= 2;
-                epsilonRate *= 2;
-
-                if(oneCounts[i] > input.Length / 2) gammaRate++;
-                else epsilonRate++;
+                result[i] = oneCounts[i] == lineCount / 2.0 ? null : oneCounts[i] > lineCount / 2;
             }
-
-            var result = gammaRate * epsilonRate;
 
             return result;
         }
