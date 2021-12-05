@@ -1,13 +1,13 @@
-namespace AdventOfCode2021.Days
+namespace AdventOfCode2021.Days.Day04
 {
-    public class Day04Part2 : Solution<int>
+    public class Part2 : Solution<int>
     {
-        public const int BoardWidth = Day04Part1.BoardWidth;
-        public const int BoardHeight = Day04Part1.BoardHeight;
+        public const int BoardWidth = Part1.BoardWidth;
+        public const int BoardHeight = Part1.BoardHeight;
 
         public override int Apply(string[] input)
         {
-            var game = Day04Part1.GetBingoGame(input);
+            var game = Part1.GetBingoGame(input);
             var drawn = new HashSet<int>();
             var boardCount = game.Boards.GetLength(0);
             var winnerBoards = new List<int>(boardCount);
@@ -31,7 +31,7 @@ namespace AdventOfCode2021.Days
                             {
                                 winnerBoards.Add(mapping.BoardId);
 
-                                if (winnerBoards.Count == boardCount) return Day04Part1.CalculateScore(game, mapping, drawn);
+                                if (winnerBoards.Count == boardCount) return Part1.CalculateScore(game, mapping, drawn);
                             }
                         }
 
@@ -44,7 +44,7 @@ namespace AdventOfCode2021.Days
                             {
                                 winnerBoards.Add(mapping.BoardId);
 
-                                if (winnerBoards.Count == boardCount) return Day04Part1.CalculateScore(game, mapping, drawn);
+                                if (winnerBoards.Count == boardCount) return Part1.CalculateScore(game, mapping, drawn);
                             }
                         }
                     }
