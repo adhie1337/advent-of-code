@@ -2,7 +2,7 @@ namespace AdventOfCode2021.Tests
 {
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-    using AdventOfCode2021.Days;
+    using AdventOfCode2021.Days.Day03;
 
     [TestClass]
     public class Day03Part2Tests
@@ -12,7 +12,7 @@ namespace AdventOfCode2021.Tests
         {
             var input = new[] { "1" };
 
-            var result = Day03Part2.Compute(input);
+            var result = Part2.Compute(input);
 
             Assert.AreEqual(1, result);
         }
@@ -22,7 +22,7 @@ namespace AdventOfCode2021.Tests
         {
             var input = new[] { "1", "0" };
 
-            var result = Day03Part2.Compute(input);
+            var result = Part2.Compute(input);
 
             Assert.AreEqual(0, result);
         }
@@ -32,7 +32,7 @@ namespace AdventOfCode2021.Tests
         {
             var input = new[] { "110", "100", "111" };
 
-            var result = Day03Part2.GetOxigenGeneratorRating(input);
+            var result = Part2.GetOxigenGeneratorRating(input);
 
             Assert.AreEqual(7, result);
         }
@@ -42,7 +42,7 @@ namespace AdventOfCode2021.Tests
         {
             var input = new[] { "110", "100", "111" };
 
-            var result = Day03Part2.GetCo2ScrubberRating(input);
+            var result = Part2.GetCo2ScrubberRating(input);
 
             Assert.AreEqual(7, result);
         }
@@ -52,7 +52,7 @@ namespace AdventOfCode2021.Tests
         {
             var input = new[] { "00100", "11110", "10110", "10111", "10101", "01111", "00111", "11100", "10000", "11001", "00010", "01010" };
 
-            var result = Day03Part2.GetOxigenGeneratorRating(input);
+            var result = Part2.GetOxigenGeneratorRating(input);
 
             Assert.AreEqual(23, result);
         }
@@ -62,7 +62,7 @@ namespace AdventOfCode2021.Tests
         {
             var input = new[] { "00100", "11110", "10110", "10111", "10101", "01111", "00111", "11100", "10000", "11001", "00010", "01010" };
 
-            var result = Day03Part2.GetCo2ScrubberRating(input);
+            var result = Part2.GetCo2ScrubberRating(input);
 
             Assert.AreEqual(10, result);
         }

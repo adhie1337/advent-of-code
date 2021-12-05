@@ -1,15 +1,8 @@
-namespace AdventOfCode2021.Days
+namespace AdventOfCode2021.Days.Day02
 {
     using static Direction;
 
-    public readonly record struct State(uint HorizontalPosition, int Depth, int Aim)
-    {
-        public static readonly State Start = new State(0, 0, 0);
-
-        public long ToInt() => this.HorizontalPosition * this.Depth;
-    }
-
-    public class Day02Part2 : Solution<long>
+    public class Part2 : Solution<long>
     {
         public override long Apply(string[] input)
         {

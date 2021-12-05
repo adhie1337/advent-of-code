@@ -6,14 +6,16 @@ using AdventOfCode2021;
 
 var solutionClassRegex = new Regex(@"^Day(\d{2})Part(\d)$");
 
-string GetInputFile(Type type) => solutionClassRegex!.Replace(type.Name, "data/day$1/input");
+string GetId(Type type) => type.Namespace.Substring(type.Namespace.LastIndexOf(".") + 1) + type.Name;
+
+string GetInputFile(Type type) => solutionClassRegex!.Replace(GetId(type), "data/day$1/input");
 
 var solutions = Assembly.GetExecutingAssembly()
     .GetTypes()
     .Where(type => type.IsClass
         && !type.IsAbstract
         && type.IsAssignableTo(typeof(ISolution)))
-    .ToDictionary(type => type.Name.ToLower());
+    .ToDictionary(type => GetId(type).ToLower());
 
 var solutionSet = solutions.Keys.ToHashSet();
 var unknownArgs = args.ToHashSet().Except(solutionSet);

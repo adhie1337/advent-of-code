@@ -1,6 +1,6 @@
-namespace AdventOfCode2021.Days
+namespace AdventOfCode2021.Days.Day01
 {
-    public class Day01Part2 : Solution<int>
+    public class Part2 : Solution<int>
     {
         public override int Apply(string[] input)
         {

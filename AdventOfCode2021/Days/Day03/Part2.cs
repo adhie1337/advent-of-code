@@ -1,6 +1,6 @@
-namespace AdventOfCode2021.Days
+namespace AdventOfCode2021.Days.Day03
 {
-    public class Day03Part2 : Solution<int>
+    public class Part2 : Solution<int>
     {
         public override int Apply(string[] input) => Compute(input);
 
@@ -26,7 +26,7 @@ namespace AdventOfCode2021.Days
 
             while (oxigenGeneratorRatingValues.Count > 1 && digitIndex < wordLength)
             {
-                var mostCommon = Day03Part1.GetMostCommonBits(oxigenGeneratorRatingValues, true)[digitIndex];
+                var mostCommon = Part1.GetMostCommonBits(oxigenGeneratorRatingValues, true)[digitIndex];
                 var mostCommonDigit = mostCommon.HasValue ? mostCommon.Value ? (char?)'1' : '0' : null;
 
                 for (var i = 0; i < oxigenGeneratorRatingValues.Count && oxigenGeneratorRatingValues.Count > 1; ++i)
@@ -44,7 +44,7 @@ namespace AdventOfCode2021.Days
                 digitIndex++;
             }
 
-            return Day03Part1.ToInt(oxigenGeneratorRatingValues[0].Select(_ => _ == '1').ToArray());
+            return Part1.ToInt(oxigenGeneratorRatingValues[0].Select(_ => _ == '1').ToArray());
         }
     }
 }
