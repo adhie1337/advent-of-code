@@ -12,7 +12,7 @@ namespace AdventOfCode2021.Days.Day05
     public readonly record struct Line(Point Start, Point End)
     {
         public int HorizontalDistance => this.End.X - this.Start.X;
-        
+
         public int VerticalDistance => this.End.Y - this.Start.Y;
 
         public bool IsHorizontal => this.VerticalDistance == 0;

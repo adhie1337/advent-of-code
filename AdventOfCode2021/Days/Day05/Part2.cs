@@ -1,6 +1,6 @@
 namespace AdventOfCode2021.Days.Day05
 {
-    public class Part1 : Solution<int>
+    public class Part2 : Solution<int>
     {
         public override int Apply(string[] input)
         {
@@ -22,6 +22,15 @@ namespace AdventOfCode2021.Days.Day05
             {
                 for (var j = line.TopY; j <= line.BottomY; ++j)
                     yield return new Point(line.Start.X, j);
+            }
+            else
+            {
+                var xd = Math.Clamp(line.HorizontalDistance, -1, 1);
+                var yd = Math.Clamp(line.VerticalDistance, -1, 1);
+                var count = Math.Abs(line.HorizontalDistance);
+
+                for (var i = 0; i <= count; ++i)
+                    yield return new Point(line.Start.X + i * xd, line.Start.Y + i * yd);
             }
         }
     }
