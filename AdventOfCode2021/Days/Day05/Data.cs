@@ -27,6 +27,22 @@ namespace AdventOfCode2021.Days.Day05
 
         public int BottomY => Math.Max(this.Start.Y, this.End.Y);
 
+        public Point[] Points
+        {
+            get
+            {
+                var xd = Math.Clamp(this.HorizontalDistance, -1, 1);
+                var yd = Math.Clamp(this.VerticalDistance, -1, 1);
+                var count = xd != 0 ? Math.Abs(this.HorizontalDistance) : Math.Abs(this.VerticalDistance);
+                var result = new Point[count + 1];
+
+                for (var i = 0; i <= count; ++i)
+                    result[i] = new Point(this.Start.X + i * xd, this.Start.Y + i * yd);
+
+                return result;
+            }
+        }
+
         public static Line Parse(string line) => Parse(line.Split(" -> "));
 
         public static Line Parse(string[] points) => new Line(Point.Parse(points[0]), Point.Parse(points[1]));
