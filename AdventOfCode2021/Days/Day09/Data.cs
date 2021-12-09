@@ -5,10 +5,10 @@ namespace AdventOfCode2021.Days.Day09
         public IEnumerable<Point> GetNeighbors()
             => new[]
             {
-                new Point(X, Y - 1),
-                new Point(X, Y + 1),
-                new Point(X - 1, Y),
-                new Point(X + 1, Y)
+                new Point(this.X, this.Y - 1),
+                new Point(this.X, this.Y + 1),
+                new Point(this.X - 1, this.Y),
+                new Point(this.X + 1, this.Y)
             };
     }
 
