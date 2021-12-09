@@ -17,6 +17,11 @@ namespace AdventOfCode2021.Days.Day09
         public int RiskLevel => this.Height + 1;
     };
 
+    public readonly record struct Basin(LowPoint LowPoint, Point[] Points)
+    {
+        public int Size => this.Points.Length;
+    }
+
     public readonly record struct HeightMap(byte[,] Heights)
     {
         public IEnumerable<Point> GetPoints()
@@ -28,9 +33,38 @@ namespace AdventOfCode2021.Days.Day09
                     .Select(x => new Point(x, y)));
         }
 
+        public IEnumerable<Basin> GetBasins()
+        {
+            foreach (var lowPoint in this.GetLowPoints())
+            {
+                var points = this.GetBasinPoints(new[] { lowPoint.Point }, new List<Point>());
+
+                yield return new Basin(lowPoint, points);
+            }
+        }
+
+        public Point[] GetBasinPoints(IEnumerable<Point> pointsToVisit, List<Point> includedPoints)
+        {
+            if (!pointsToVisit.Any()) return includedPoints.ToArray();
+
+            var nextPoint = pointsToVisit.First();
+
+            includedPoints.Add(nextPoint);
+
+            var nextToVisit = pointsToVisit.Skip(1)
+                .Concat(nextPoint.GetNeighbors().Where(this.IsValidNot9))
+                .Except(includedPoints)
+                .ToArray();
+
+            return this.GetBasinPoints(nextToVisit, includedPoints);
+        }
+
         public bool IsValidPoint(Point p)
             => p.Y >= 0 && p.Y < this.Heights.GetLength(0) &&
                 p.X >= 0 && p.X < this.Heights.GetLength(1);
+
+        public bool IsValidNot9(Point p)
+            => this.IsValidPoint(p) && this.Heights[p.Y, p.X] != 9;
 
         public IEnumerable<LowPoint> GetLowPoints()
         {
