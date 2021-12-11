@@ -2,25 +2,22 @@ namespace AdventOfCode2021.Days.Day03
 {
     public class Part2 : Solution<int>
     {
-        public override int Apply(string[] input) => Compute(input);
+        public override int Apply(string[] input) => CalculateLifeSupportReport(input).ToInt();
 
-        public static int Compute(string[] input)
-        {
-            var oxigenGeneratorRating = GetOxigenGeneratorRating(input);
-            var co2ScrubberRating = GetCo2ScrubberRating(input);
+        public static LifeSupportReport CalculateLifeSupportReport(string[] input)
+            => new LifeSupportReport()
+            {
+                OxigenGeneratorRate = GetOxigenGeneratorRate(input),
+                Co2ScrubberRate = GetCo2ScrubberRate(input),
+            };
 
-            var result = oxigenGeneratorRating * co2ScrubberRating;
+        public static int GetOxigenGeneratorRate(string[] input) => CalculateReportValue(input, true);
 
-            return result;
-        }
-
-        public static int GetOxigenGeneratorRating(string[] input) => CalculateReportValue(input, true);
-
-        public static int GetCo2ScrubberRating(string[] input) => CalculateReportValue(input, false);
+        public static int GetCo2ScrubberRate(string[] input) => CalculateReportValue(input, false);
 
         public static int CalculateReportValue(string[] input, bool isO2Report)
         {
-            var wordLength = input[0].Length;
+            var wordLength = input.FirstOrDefault()?.Length ?? 0;
             var oxigenGeneratorRatingValues = input.ToList();
             var digitIndex = 0;
 
@@ -44,7 +41,7 @@ namespace AdventOfCode2021.Days.Day03
                 digitIndex++;
             }
 
-            return Part1.ToInt(oxigenGeneratorRatingValues[0].Select(_ => _ == '1').ToArray());
+            return Part1.ToInt(oxigenGeneratorRatingValues.SelectMany(_ => _.Select(_ => _ == '1')).ToArray());
         }
     }
 }

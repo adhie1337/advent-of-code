@@ -2,36 +2,24 @@ namespace AdventOfCode2021.Days.Day03
 {
     public class Part1 : Solution<int>
     {
-        public override int Apply(string[] input)
-        {
-            var commonBits = GetMostCommonBits(input);
+        public override int Apply(string[] input) => CalculatePowerConsumpltionReport(input).ToInt();
 
-            var gammaRate = ToInt(commonBits.Select(_ => _!.Value));
-            var epsilonRate = ToInt(commonBits.Select(_ => !_!.Value));
+        public static PowerConsumpltionReport CalculatePowerConsumpltionReport(string[] input)
+            => CalculatePowerConsumpltionReport(GetMostCommonBits(input));
 
-            var result = gammaRate * epsilonRate;
-
-            return result;
-        }
-
-        public static int ToInt(IEnumerable<bool> commonBits)
-        {
-            var result = 0;
-
-            foreach (var actualBitIsOne in commonBits)
+        private static PowerConsumpltionReport CalculatePowerConsumpltionReport(bool?[] commonBits)
+            => new PowerConsumpltionReport()
             {
-                result *= 2;
+                GammaRate = ToInt(commonBits.Select(_ => _!.Value)),
+                EpsilonRate = ToInt(commonBits.Select(_ => !_!.Value)),
+            };
 
-                if (actualBitIsOne) result++;
-            }
-
-            return result;
-        }
+        public static int ToInt(IEnumerable<bool> commonBits) => commonBits.Aggregate(0, (a, b) => a * 2 + (b ? 1 : 0));
 
         public static bool?[] GetMostCommonBits(IEnumerable<string> lines, bool? defaultIsOne = null)
         {
             var lineCount = lines.Count();
-            var wordLength = lines.First().Length;
+            var wordLength = lines.FirstOrDefault()?.Length ?? 0;
             var oneCounts = new int[wordLength];
 
             foreach(var line in lines)

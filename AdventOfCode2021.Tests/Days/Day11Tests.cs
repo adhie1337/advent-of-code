@@ -22,7 +22,7 @@ namespace AdventOfCode2021.Tests
         };
 
         [TestMethod]
-        public void CountFlashes_ForExample_Returns26397()
+        public void CountFlashes_ForExample_Returns1656()
         {
             var input = ExampleInput;
 
@@ -32,7 +32,7 @@ namespace AdventOfCode2021.Tests
         }
 
         [TestMethod]
-        public void CalculateSyntaxErrorScore_ForExample_Returns26397()
+        public void GetFirstRoundWhereInSync_ForExample_Returns195()
         {
             var input = ExampleInput;
 

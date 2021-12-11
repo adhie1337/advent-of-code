@@ -2,12 +2,10 @@ namespace AdventOfCode2021.Days.Day07
 {
     public class Part2 : Solution<int>
     {
-        public override int Apply(string[] input)
-        {
-            var positions = input.SelectMany(_ => _.Split(','))
-                .Select(int.Parse)
-                .ToArray();
+        public override int Apply(string[] input) => CalculateBestPosition(input.SelectMany(_ => _.Split(',')).Select(int.Parse).ToArray());
 
+        public static int CalculateBestPosition(int[] positions)
+        {
             var min = positions.Min();
             var max = positions.Max();
 

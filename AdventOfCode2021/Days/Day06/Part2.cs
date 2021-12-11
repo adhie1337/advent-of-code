@@ -2,18 +2,11 @@ namespace AdventOfCode2021.Days.Day06
 {
     public class Part2 : Solution<ulong>
     {
-        public override ulong Apply(string[] input)
-        {
-            var school = LanternFishSchool.Parse(input);
+        public override ulong Apply(string[] input) => CalculateFishSchoolSize(LanternFishSchool.Parse(input));
 
-            for (var i = 0; i < 256; ++i)
-            {
-                school = school.NextDay();
-            }
+        public static ulong CalculateFishSchoolSize(LanternFishSchool school)
+            => Enumerable.Range(0, 256).Aggregate(school, (s, _) => s.NextDay()).FishCounts.Aggregate(default(ulong), Add);
 
-            static ulong Add(ulong left, ulong right) => left + right;
-
-            return school.FishCounts.Aggregate(default(ulong), Add);
-        }
+        public static ulong Add(ulong left, ulong right) => left + right;
     }
 }

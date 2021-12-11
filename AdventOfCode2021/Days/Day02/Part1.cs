@@ -4,15 +4,11 @@ namespace AdventOfCode2021.Days.Day02
 
     public class Part1 : Solution<uint>
     {
-        public override uint Apply(string[] input)
-        {
-            var commands = input.Select(Command.Parse);
-            var result = commands.Aggregate(Position.Empty, Execute);
+        public override uint Apply(string[] input) => Simulate(input.Select(Command.Parse)).ToInt();
 
-            return result.ToInt();
-        }
+        public static Position Simulate(IEnumerable<Command> commands) => commands.Aggregate(Position.Empty, Execute);
 
-        public Position Execute(Position p, Command command) => command switch
+        public static Position Execute(Position p, Command command) => command switch
         {
             Command(Forward, var delta) => new Position(p.HorizontalPosition + delta, p.Depth),
             Command(Up, var delta) => new Position(p.HorizontalPosition, p.Depth - delta),

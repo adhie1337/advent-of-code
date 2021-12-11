@@ -2,15 +2,16 @@ namespace AdventOfCode2021.Days.Day01
 {
     public class Part2 : Solution<int>
     {
-        public override int Apply(string[] input)
+        public override int Apply(string[] input) => CountThreeSumIncreases(input.Select(int.Parse));
+
+        public static int CountThreeSumIncreases(IEnumerable<int> ints)
         {
-            var ints = input.Select(int.Parse);
             var windows = ints.Zip(ints.Skip(1))
                 .Zip(ints.Skip(2))
                 .Select(_ => _.First.First + _.First.Second + _.Second);
-            var result = windows.Zip(windows.Skip(1))
+
+            return windows.Zip(windows.Skip(1))
                 .Count(_ => _.First < _.Second);
-            return result;
         }
     }
 }
