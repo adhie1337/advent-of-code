@@ -5,16 +5,15 @@ namespace AdventOfCode2021.Days.Day03
         public override int Apply(string[] input) => CalculateLifeSupportReport(input).ToInt();
 
         public static LifeSupportReport CalculateLifeSupportReport(string[] input)
-        {
-            var oxigenGeneratorRating = GetOxigenGeneratorRating(input);
-            var co2ScrubberRating = GetCo2ScrubberRating(input);
+            => new LifeSupportReport()
+            {
+                OxigenGeneratorRate = GetOxigenGeneratorRate(input),
+                Co2ScrubberRate = GetCo2ScrubberRate(input),
+            };
 
-            return new LifeSupportReport(oxigenGeneratorRating, co2ScrubberRating);
-        }
+        public static int GetOxigenGeneratorRate(string[] input) => CalculateReportValue(input, true);
 
-        public static int GetOxigenGeneratorRating(string[] input) => CalculateReportValue(input, true);
-
-        public static int GetCo2ScrubberRating(string[] input) => CalculateReportValue(input, false);
+        public static int GetCo2ScrubberRate(string[] input) => CalculateReportValue(input, false);
 
         public static int CalculateReportValue(string[] input, bool isO2Report)
         {

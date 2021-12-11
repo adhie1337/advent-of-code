@@ -5,28 +5,16 @@ namespace AdventOfCode2021.Days.Day03
         public override int Apply(string[] input) => CalculatePowerConsumpltionReport(input).ToInt();
 
         public static PowerConsumpltionReport CalculatePowerConsumpltionReport(string[] input)
-        {
-            var commonBits = GetMostCommonBits(input);
+            => CalculatePowerConsumpltionReport(GetMostCommonBits(input));
 
-            var gammaRate = ToInt(commonBits.Select(_ => _!.Value));
-            var epsilonRate = ToInt(commonBits.Select(_ => !_!.Value));
-
-            return new PowerConsumpltionReport(gammaRate, epsilonRate);
-        }
-
-        public static int ToInt(IEnumerable<bool> commonBits)
-        {
-            var result = 0;
-
-            foreach (var actualBitIsOne in commonBits)
+        private static PowerConsumpltionReport CalculatePowerConsumpltionReport(bool?[] commonBits)
+            => new PowerConsumpltionReport()
             {
-                result *= 2;
+                GammaRate = ToInt(commonBits.Select(_ => _!.Value)),
+                EpsilonRate = ToInt(commonBits.Select(_ => !_!.Value)),
+            };
 
-                if (actualBitIsOne) result++;
-            }
-
-            return result;
-        }
+        public static int ToInt(IEnumerable<bool> commonBits) => commonBits.Aggregate(0, (a, b) => a * 2 + (b ? 1 : 0));
 
         public static bool?[] GetMostCommonBits(IEnumerable<string> lines, bool? defaultIsOne = null)
         {

@@ -50,41 +50,41 @@ namespace AdventOfCode2021.Tests
         }
 
         [TestMethod]
-        public void GetOxigenGeneratorRating_ForFairlyComplexList_ReturnsCorrectValue()
+        public void GetOxigenGeneratorRate_ForFairlyComplexList_ReturnsCorrectValue()
         {
             var input = new[] { "110", "100", "111" };
 
-            var result = Part2.GetOxigenGeneratorRating(input);
+            var result = Part2.GetOxigenGeneratorRate(input);
 
             Assert.AreEqual(7, result);
         }
 
         [TestMethod]
-        public void GetCo2ScrubberRating_ForFairlyComplexList_ReturnsCorrectValue()
+        public void GetCo2ScrubberRate_ForFairlyComplexList_ReturnsCorrectValue()
         {
             var input = new[] { "110", "100", "111" };
 
-            var result = Part2.GetCo2ScrubberRating(input);
+            var result = Part2.GetCo2ScrubberRate(input);
 
             Assert.AreEqual(7, result);
         }
 
         [TestMethod]
-        public void GetOxigenGeneratorRating_ForExampleList_ReturnsCorrectValue()
+        public void GetOxigenGeneratorRate_ForExampleList_ReturnsCorrectValue()
         {
             var input = new[] { "00100", "11110", "10110", "10111", "10101", "01111", "00111", "11100", "10000", "11001", "00010", "01010" };
 
-            var result = Part2.GetOxigenGeneratorRating(input);
+            var result = Part2.GetOxigenGeneratorRate(input);
 
             Assert.AreEqual(23, result);
         }
 
         [TestMethod]
-        public void GetCo2ScrubberRating_ForExampleList_ReturnsCorrectValue()
+        public void GetCo2ScrubberRate_ForExampleList_ReturnsCorrectValue()
         {
             var input = new[] { "00100", "11110", "10110", "10111", "10101", "01111", "00111", "11100", "10000", "11001", "00010", "01010" };
 
-            var result = Part2.GetCo2ScrubberRating(input);
+            var result = Part2.GetCo2ScrubberRate(input);
 
             Assert.AreEqual(10, result);
         }

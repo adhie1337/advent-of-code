@@ -4,13 +4,7 @@ namespace AdventOfCode2021.Days.Day02
 
     public class Part1 : Solution<uint>
     {
-        public override uint Apply(string[] input)
-        {
-            var commands = input.Select(Command.Parse);
-            var result = Simulate(commands);
-
-            return result.ToInt();
-        }
+        public override uint Apply(string[] input) => Simulate(input.Select(Command.Parse)).ToInt();
 
         public static Position Simulate(IEnumerable<Command> commands) => commands.Aggregate(Position.Empty, Execute);
 
