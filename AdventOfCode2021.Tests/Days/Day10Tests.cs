@@ -38,7 +38,7 @@ namespace AdventOfCode2021.Tests
 
             var result = Part2.CalculateAutocompleteScore(input);
 
-            Assert.AreEqual(288957, result);
+            Assert.AreEqual<ulong>(288957, result);
         }
     }
 }
