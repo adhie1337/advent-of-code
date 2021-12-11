@@ -22,7 +22,7 @@ namespace AdventOfCode2021.Tests
         };
 
         [TestMethod]
-        public void CountOverlapPointsWithoutDiagonals_ForExampleInput_Returns5()
+        public void CountOverlapPointsWithoutDiagonals_ForExample_Returns5()
         {
             var input = ExampleLines;
 
@@ -32,7 +32,7 @@ namespace AdventOfCode2021.Tests
         }
 
         [TestMethod]
-        public void CountOverlappingPoints_ForExampleInput_Returns12()
+        public void CountOverlappingPoints_ForExample_Returns12()
         {
             var input = ExampleLines;
 

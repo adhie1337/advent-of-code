@@ -19,7 +19,7 @@ namespace AdventOfCode2021.Tests
         private static readonly LanternFishSchool ExampleSchool = new LanternFishSchool(new ulong[] { 0, 1, 1, 2, 1, 0, 0, 0, 0, 0 });
 
         [TestMethod]
-        public void CountOverlapPointsWithoutDiagonals_ForExampleInput_Returns5934()
+        public void CalculateSchoolSize_ForExample_Returns5934()
         {
             var input = ExampleLanternFishes;
 
@@ -29,7 +29,7 @@ namespace AdventOfCode2021.Tests
         }
 
         [TestMethod]
-        public void CalculateFishSchoolSize_ForExampleInput_Returns26984457539()
+        public void CalculateFishSchoolSize_ForExample_Returns26984457539()
         {
             var input = ExampleSchool;
 

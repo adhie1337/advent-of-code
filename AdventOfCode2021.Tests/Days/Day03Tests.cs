@@ -10,17 +10,17 @@ namespace AdventOfCode2021.Tests
         private static readonly string[] ExampleInput = new[] { "00100", "11110", "10110", "10111", "10101", "01111", "00111", "11100", "10000", "11001", "00010", "01010" };
 
         [TestMethod]
-        public void CalculatePowerConsumpltionReport_ForEmpty_ReturnsCorrectReport()
+        public void CalculatePowerConsumpltionReport_ForEmpty_ReturnsEmptyReport()
         {
             var input = new string[0];
 
             var result = Part1.CalculatePowerConsumpltionReport(input);
 
-            Assert.AreEqual(new PowerConsumpltionReport(0, 0), result);
+            Assert.AreEqual(new PowerConsumpltionReport(), result);
         }
 
         [TestMethod]
-        public void CalculatePowerConsumpltionReport_ForExampleInput_ReturnsEmptyReport()
+        public void CalculatePowerConsumpltionReport_ForExample_ReturnsCorrectReport()
         {
             var input = ExampleInput;
 
@@ -90,17 +90,17 @@ namespace AdventOfCode2021.Tests
         }
 
         [TestMethod]
-        public void CalculateLifeSupportReport_ForEmpty_ReturnsCorrectReport()
+        public void CalculateLifeSupportReport_ForEmpty_ReturnsEmptyReport()
         {
             var input = new string[0];
 
             var result = Part2.CalculateLifeSupportReport(input);
 
-            Assert.AreEqual(new LifeSupportReport(0, 0), result);
+            Assert.AreEqual(new LifeSupportReport(), result);
         }
 
         [TestMethod]
-        public void CalculateLifeSupportReport_ForExampleInput_ReturnsEmptyReport()
+        public void CalculateLifeSupportReport_ForExample_ReturnsCorrectReport()
         {
             var input = ExampleInput;
 

@@ -76,7 +76,7 @@ namespace AdventOfCode2021.Tests
         };
 
         [TestMethod]
-        public void CountRecognizedNumbers_ForExampleInput_Returns26()
+        public void CountRecognizedNumbers_ForExample_Returns26()
         {
             var input = Example;
 
@@ -86,7 +86,7 @@ namespace AdventOfCode2021.Tests
         }
 
         [TestMethod]
-        public void SumOutputValues_ForExampleInput_Returns61229()
+        public void SumOutputValues_ForExample_Returns61229()
         {
             var input = ExampleLines;
 

@@ -37,7 +37,7 @@ namespace AdventOfCode2021.Tests
         );
 
         [TestMethod]
-        public void CalclateScoreOfWinner_ForExampleInput_Returns4512()
+        public void CalclateScoreOfWinner_ForExample_Returns4512()
         {
             var input = ExampleGame;
 
@@ -47,7 +47,7 @@ namespace AdventOfCode2021.Tests
         }
 
         [TestMethod]
-        public void CalculateScoreOfLast_ForExampleInput_Returns1924()
+        public void CalculateScoreOfLast_ForExample_Returns1924()
         {
             var input = ExampleGame;
 

@@ -10,7 +10,7 @@ namespace AdventOfCode2021.Tests
         private static readonly int[] Example = new[] { 16, 1, 2, 0, 4, 2, 7, 1, 2, 14 };
 
         [TestMethod]
-        public void CalculateBestPosition_ForExampleInput_Returns37()
+        public void CalculateBestPosition_ForExample_Returns37()
         {
             var input = Example;
 
@@ -20,7 +20,7 @@ namespace AdventOfCode2021.Tests
         }
 
         [TestMethod]
-        public void CalculateFishSchoolSize_ForExampleInput_Returns168()
+        public void CalculateBestPosition_ForExample_Returns168()
         {
             var input = Example;
 
