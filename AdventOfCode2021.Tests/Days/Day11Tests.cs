@@ -30,5 +30,15 @@ namespace AdventOfCode2021.Tests
 
             Assert.AreEqual<ulong>(1656, result);
         }
+
+        [TestMethod]
+        public void CalculateSyntaxErrorScore_ForExample_Returns26397()
+        {
+            var input = ExampleInput;
+
+            var result = Part2.GetFirstRoundWhereInSync(input);
+
+            Assert.AreEqual(195, result);
+        }
     }
 }
