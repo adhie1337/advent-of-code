@@ -2,16 +2,16 @@ namespace AdventOfCode2021.Days.Day03
 {
     public class Part1 : Solution<int>
     {
-        public override int Apply(string[] input)
+        public override int Apply(string[] input) => CalculatePowerConsumpltionReport(input).ToInt();
+
+        public static PowerConsumpltionReport CalculatePowerConsumpltionReport(string[] input)
         {
             var commonBits = GetMostCommonBits(input);
 
             var gammaRate = ToInt(commonBits.Select(_ => _!.Value));
             var epsilonRate = ToInt(commonBits.Select(_ => !_!.Value));
 
-            var result = gammaRate * epsilonRate;
-
-            return result;
+            return new PowerConsumpltionReport(gammaRate, epsilonRate);
         }
 
         public static int ToInt(IEnumerable<bool> commonBits)
@@ -31,7 +31,7 @@ namespace AdventOfCode2021.Days.Day03
         public static bool?[] GetMostCommonBits(IEnumerable<string> lines, bool? defaultIsOne = null)
         {
             var lineCount = lines.Count();
-            var wordLength = lines.First().Length;
+            var wordLength = lines.FirstOrDefault()?.Length ?? 0;
             var oneCounts = new int[wordLength];
 
             foreach(var line in lines)

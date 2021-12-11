@@ -2,9 +2,10 @@ namespace AdventOfCode2021.Days.Day04
 {
     public class Part2 : Solution<int>
     {
-        public override int Apply(string[] input)
+        public override int Apply(string[] input) => CalculateScoreOfLast(Game.Parse(input));
+
+        public static int CalculateScoreOfLast(Game game)
         {
-            var game = Game.Parse(input);
             var drawn = new HashSet<int>();
             var boardCount = game.Boards.GetLength(0);
             var winnerBoards = new List<int>(boardCount);

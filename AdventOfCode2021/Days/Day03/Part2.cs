@@ -2,16 +2,14 @@ namespace AdventOfCode2021.Days.Day03
 {
     public class Part2 : Solution<int>
     {
-        public override int Apply(string[] input) => Compute(input);
+        public override int Apply(string[] input) => CalculateLifeSupportReport(input).ToInt();
 
-        public static int Compute(string[] input)
+        public static LifeSupportReport CalculateLifeSupportReport(string[] input)
         {
             var oxigenGeneratorRating = GetOxigenGeneratorRating(input);
             var co2ScrubberRating = GetCo2ScrubberRating(input);
 
-            var result = oxigenGeneratorRating * co2ScrubberRating;
-
-            return result;
+            return new LifeSupportReport(oxigenGeneratorRating, co2ScrubberRating);
         }
 
         public static int GetOxigenGeneratorRating(string[] input) => CalculateReportValue(input, true);
@@ -20,7 +18,7 @@ namespace AdventOfCode2021.Days.Day03
 
         public static int CalculateReportValue(string[] input, bool isO2Report)
         {
-            var wordLength = input[0].Length;
+            var wordLength = input.FirstOrDefault()?.Length ?? 0;
             var oxigenGeneratorRatingValues = input.ToList();
             var digitIndex = 0;
 
@@ -44,7 +42,7 @@ namespace AdventOfCode2021.Days.Day03
                 digitIndex++;
             }
 
-            return Part1.ToInt(oxigenGeneratorRatingValues[0].Select(_ => _ == '1').ToArray());
+            return Part1.ToInt(oxigenGeneratorRatingValues.SelectMany(_ => _.Select(_ => _ == '1')).ToArray());
         }
     }
 }

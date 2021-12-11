@@ -7,12 +7,14 @@ namespace AdventOfCode2021.Days.Day02
         public override uint Apply(string[] input)
         {
             var commands = input.Select(Command.Parse);
-            var result = commands.Aggregate(Position.Empty, Execute);
+            var result = Simulate(commands);
 
             return result.ToInt();
         }
 
-        public Position Execute(Position p, Command command) => command switch
+        public static Position Simulate(IEnumerable<Command> commands) => commands.Aggregate(Position.Empty, Execute);
+
+        public static Position Execute(Position p, Command command) => command switch
         {
             Command(Forward, var delta) => new Position(p.HorizontalPosition + delta, p.Depth),
             Command(Up, var delta) => new Position(p.HorizontalPosition, p.Depth - delta),

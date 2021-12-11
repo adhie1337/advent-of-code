@@ -34,6 +34,29 @@ namespace AdventOfCode2021.Days.Day04
             return false;
         }
 
+        public static Game Create(int[] numbers, int[,,] boards)
+        {
+            var mappings = new Dictionary<int, List<BoardMapping>>();
+
+            for (var boardId = 0; boardId < boards.GetLength(0); ++boardId)
+            {
+                for (var row = 0; row < BoardHeight; ++row)
+                {
+                    for (var column = 0; column < BoardWidth; ++column)
+                    {
+                        var number = boards[boardId, row, column];
+
+                        var entry = new BoardMapping(number, boardId, row, column);
+
+                        if (mappings.TryGetValue(number, out var l)) l.Add(entry);
+                        else mappings[number] = new List<BoardMapping>() { entry };
+                    }
+                }
+            }
+
+            return new Game(numbers, boards, mappings);
+        }
+
         public static Game Parse(string[] input)
         {
             var numbers = input[0].Split(",").Select(int.Parse).ToArray();

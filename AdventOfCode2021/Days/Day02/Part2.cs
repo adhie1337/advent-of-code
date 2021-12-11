@@ -12,7 +12,9 @@ namespace AdventOfCode2021.Days.Day02
             return result.ToInt();
         }
 
-        public State Execute(State s, Command command) => command switch
+        public static State Simulate(IEnumerable<Command> commands) => commands.Aggregate(State.Start, Execute);
+
+        public static State Execute(State s, Command command) => command switch
         {
             Command(Up, var delta) => s with { Aim = s.Aim - delta },
             Command(Down, var delta) => s with { Aim = s.Aim + delta },
