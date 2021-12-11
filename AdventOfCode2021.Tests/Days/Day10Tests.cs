@@ -30,5 +30,15 @@ namespace AdventOfCode2021.Tests
 
             Assert.AreEqual(26397, result);
         }
+
+        [TestMethod]
+        public void CalculateAutocompleteScore_ForExample_Returns288957()
+        {
+            var input = ExampleInput;
+
+            var result = Part2.CalculateAutocompleteScore(input);
+
+            Assert.AreEqual(288957, result);
+        }
     }
 }
