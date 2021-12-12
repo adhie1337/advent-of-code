@@ -83,5 +83,35 @@ namespace AdventOfCode2021.Tests
 
             Assert.AreEqual<ulong>(226, result);
         }
+
+        [TestMethod]
+        public void CountPaths_ForSmallExample_Returns36()
+        {
+            var input = SmallExampleInput;
+
+            var result = Part2.CountPaths(input);
+
+            Assert.AreEqual<ulong>(36, result);
+        }
+
+        [TestMethod]
+        public void CountPaths_ForSlightlyLargerExample_Returns103()
+        {
+            var input = SlightlyLargerExampleInput;
+
+            var result = Part2.CountPaths(input);
+
+            Assert.AreEqual<ulong>(103, result);
+        }
+
+        [TestMethod]
+        public void CountPaths_ForLargerExample_Returns3509()
+        {
+            var input = LargerExampleInput;
+
+            var result = Part2.CountPaths(input);
+
+            Assert.AreEqual<ulong>(3509, result);
+        }
     }
 }
