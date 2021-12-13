@@ -49,5 +49,22 @@ namespace AdventOfCode2021.Tests
 
             Assert.AreEqual(17, result);
         }
+
+        [TestMethod]
+        public void PrintResult_ForExample_ReturnsSquare()
+        {
+            var input = ExampleInput;
+
+            var result = Part2.PrintResult(input);
+
+            var expected = @"
+#####
+#   #
+#   #
+#   #
+#####
+".TrimStart();
+            Assert.AreEqual(expected, result);
+        }
     }
 }
