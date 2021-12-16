@@ -27,7 +27,8 @@ namespace AdventOfCode2021.Days.Day14
             var result = Enumerable.Range(0, charCount).Select(c => (ulong)state.Template.Count(t => keyMap[t] == c)).ToArray();
 
             var initialSteps = state.Template.Select(c => keyMap[c]).Zip(state.Template.Skip(1).Select(c => keyMap[c]))
-                .Select(pair => (pair, 1));
+                .Select(pair => (pair, 1))
+                .ToArray();
 
             var queue = new Queue<((byte, byte) Pair, int Step)>(initialSteps);
             queue.EnsureCapacity((int)(initialSteps.Count() * Math.Pow(2, simulationLength / 2 - 1)));
@@ -41,23 +42,16 @@ namespace AdventOfCode2021.Days.Day14
 
             foreach (var r in ruleArray) rules[r.Chars] = r.Mapped;
 
-            unsafe
+            while (queue.TryPeek(out var p) && p.Step < simulationLength / 2)
             {
-                fixed (ulong* res = result)
-                fixed (byte* rul = rules)
-                {
-                    while (queue.TryPeek(out var p) && p.Step < simulationLength / 2)
-                    {
-                        var act = queue.Dequeue();
+                var act = queue.Dequeue();
 
-                        var nextChar = rules[act.Pair.Item1 + (charCount * act.Pair.Item2)];
+                var nextChar = rules[act.Pair.Item1 + (charCount * act.Pair.Item2)];
 
-                        res[nextChar]++;
+                result[nextChar]++;
 
-                        queue.Enqueue(((act.Pair.Item1, nextChar), act.Step + 1));
-                        queue.Enqueue(((nextChar, act.Pair.Item2), act.Step + 1));
-                    }
-                }
+                queue.Enqueue(((act.Pair.Item1, nextChar), act.Step + 1));
+                queue.Enqueue(((nextChar, act.Pair.Item2), act.Step + 1));
             }
 
             if (queue.Any())
@@ -86,42 +80,33 @@ namespace AdventOfCode2021.Days.Day14
             return result;
         }
 
-        public static unsafe Dictionary<(byte, byte), ulong[]> TaskImpl(int simulationLength, int i, int charCount, byte[] rules, ConcurrentQueue<((byte, byte) Pair, int Step)> queue)
+        public static Dictionary<(byte, byte), ulong[]> TaskImpl(int simulationLength, int i, int charCount, byte[] rules, ConcurrentQueue<((byte, byte) Pair, int Step)> queue)
         {
-            var innerRules = new byte[rules.Length];
-            Array.Copy(rules, innerRules, innerRules.Length);
-            var stack = new Stack<((byte, byte) Pair, int Step)>();
-            stack.EnsureCapacity(simulationLength / 2 + 2);
-            var maxStackSize = 0;
             var result = new Dictionary<(byte, byte), ulong[]>();
 
-            fixed (byte* rul = innerRules)
+            var stack = new Stack<((byte, byte) Pair, int Step)>();
+            stack.EnsureCapacity(simulationLength / 2 + 2);
+
+            while (queue.TryDequeue(out var step))
             {
-                while (queue.TryDequeue(out var step))
+                stack.Push(step);
+
+                var innerResult = new ulong[charCount];
+
+                while (stack.TryPop(out var next))
                 {
-                    stack.Push(step);
-
-                    var innerResult = Enumerable.Range(0, charCount).Select(_ => (ulong)0).ToArray();
-
-                    fixed (ulong* res = innerResult)
+                    if (next.Step <= simulationLength)
                     {
-                        while (stack.TryPop(out var next))
-                        {
-                            if (next.Step <= simulationLength)
-                            {
-                                var nextChar = rul[next.Pair.Item1 + (charCount * next.Pair.Item2)];
+                        var nextChar = rules[next.Pair.Item1 + (charCount * next.Pair.Item2)];
 
-                                res[nextChar]++;
+                        innerResult[nextChar]++;
 
-                                stack.Push(((next.Pair.Item1, nextChar), next.Step + 1));
-                                stack.Push(((nextChar, next.Pair.Item2), next.Step + 1));
-                                maxStackSize = Math.Max(maxStackSize, stack.Count);
-                            }
-                        }
+                        stack.Push(((next.Pair.Item1, nextChar), next.Step + 1));
+                        stack.Push(((nextChar, next.Pair.Item2), next.Step + 1));
                     }
-
-                    result[step.Pair] = innerResult;
                 }
+
+                result[step.Pair] = innerResult;
             }
 
             return result;
