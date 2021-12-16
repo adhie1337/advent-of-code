@@ -54,5 +54,25 @@ namespace AdventOfCode2021.Tests
 
             Assert.AreEqual(1588L, result);
         }
+
+        [TestMethod]
+        public async Task SimulateCharCounts_ForExampleAnd10Times_ReturnsCorrectState()
+        {
+            var input = ExampleInput;
+
+            var result = await Part2.SimulateCharCounts(input, 10);
+
+            Assert.AreEqual(1588ul, result.Max() - result.Min());
+        }
+
+        [TestMethod]
+        public async Task GetResultAfter40Steps_ForExample_ReturnsCorrectState()
+        {
+            var input = ExampleInput;
+
+            var result = await Part2.GetResultAfter40Steps(input);
+
+            Assert.AreEqual(2188189693529ul, result);
+        }
     }
 }
