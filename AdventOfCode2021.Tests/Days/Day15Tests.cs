@@ -30,5 +30,15 @@ namespace AdventOfCode2021.Tests
 
             Assert.AreEqual(40ul, result);
         }
+
+        [TestMethod]
+        public void Part2GetLowRiskPath_ForExample_ReturnsCorrectLength()
+        {
+            var input = Part2.Parse(ExampleLines);
+
+            var result = Part2.GetLowRiskPath(input);
+
+            Assert.AreEqual(315ul, result);
+        }
     }
 }
