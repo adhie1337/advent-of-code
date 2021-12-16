@@ -56,7 +56,8 @@ foreach (var day in daysToExecute.OrderBy(_ => _))
     {
         var result = solution!.Apply(input);
 
-        Console.WriteLine(result);
+        if (result is ValueTask<ulong> t) Console.WriteLine(await t);
+        else Console.WriteLine(result);
 
         Debug.WriteLine($"Executing {day} was a success.");
     }
