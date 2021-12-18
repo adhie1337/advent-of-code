@@ -1,6 +1,18 @@
 namespace AdventOfCode2021.Days.Day16
 {
-    public enum PacketType : byte { Literal = 4 }
+    using System.Text;
+
+    public enum PacketType : byte
+    {
+        Sum = 0,
+        Product = 1,
+        Minimum = 2,
+        Maximum = 3,
+        Literal = 4,
+        GreaterThan = 5,
+        LessThan = 6,
+        EqualTo = 7,
+    }
 
     public interface IPacket
     {
@@ -9,7 +21,7 @@ namespace AdventOfCode2021.Days.Day16
         PacketType Type { get; }
     }
 
-    public readonly record struct Literal(byte Version, int Value) : IPacket
+    public readonly record struct Literal(byte Version, ulong Value) : IPacket
     {
         public PacketType Type => PacketType.Literal;
     }
@@ -32,6 +44,17 @@ namespace AdventOfCode2021.Days.Day16
 
     public static class Packet
     {
+        public static string ToBinary(string hexString)
+        {
+            var result = new StringBuilder();
+
+            foreach (var c in hexString) result.Append(Convert.ToString(Convert.ToByte(c.ToString(), 16), 2).PadLeft(4, '0'));
+
+            return result.ToString();
+        }
+
+        public static IPacket ParseHex(string input) => Parse(ToBinary(input));
+
         public static IPacket Parse(string input) => ReadPacket(input).Result;
 
         public static (IPacket Result, int NextIndex) ReadPacket(ReadOnlySpan<char> bits)
@@ -55,7 +78,7 @@ namespace AdventOfCode2021.Days.Day16
                 nextIndex += 5;
             } while(hasNextDigit);
 
-            var literal = new Literal(version, digits.Aggregate(0, (a, d) => a * 16 + d));
+            var literal = new Literal(version, digits.Aggregate(0UL, (a, d) => checked(a * 16 + d)));
 
             return (literal, nextIndex);
         }
