@@ -18,5 +18,15 @@ namespace AdventOfCode2021.Tests
 
             Assert.AreEqual(45, result);
         }
+
+        [TestMethod]
+        public void GetSuccesfulAimCount_ForExample_Returns45()
+        {
+            var input = Example;
+
+            var result = Part2.GetSuccesfulAimCount(input);
+
+            Assert.AreEqual(112, result);
+        }
     }
 }
