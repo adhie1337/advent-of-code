@@ -38,8 +38,8 @@ namespace AdventOfCode2021.Days.Day16
             => this.SubPackets.OfType<object>()
                 .Prepend(this.Type)
                 .Prepend(this.Version)
-                .Select(_ => _.GetHashCode())
-                .Aggregate(0, HashCode.Combine);
+                .Aggregate(new HashCode(), (h, a) => { h.Add(a); return h; })
+                .ToHashCode();
     }
 
     public static class Packet
