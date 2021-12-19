@@ -7,9 +7,6 @@ namespace AdventOfCode2021.Days.Day18
         public override ulong Apply(string[] input) => GetMaxMagnitudeOfPairsAdded(input.Select(Parse).ToArray());
 
         public static ulong GetMaxMagnitudeOfPairsAdded(INumber[] numbers)
-            => (from left in numbers
-                from right in numbers
-                where left != right
-                select Add(left, right).Magnitude).Max();
+            => numbers.SelectMany(a => numbers.Where(b => a != b).Select(b => Add(a, b).Magnitude)).Max();
     }
 }

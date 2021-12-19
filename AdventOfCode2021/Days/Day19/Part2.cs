@@ -10,12 +10,9 @@ namespace AdventOfCode2021.Days.Day19
         {
             var translated = TranslateToZero(scanners, limit);
 
-            var distances =
-                from a in translated
-                from b in translated
-                select a.Position!.Value.ManhattanDistance(b.Position!.Value);
-
-            return distances.Max();
+            return translated
+                .SelectMany(a => translated.Select(b => a.Position!.Value.ManhattanDistance(b.Position!.Value)))
+                .Max();
         }
     }
 }

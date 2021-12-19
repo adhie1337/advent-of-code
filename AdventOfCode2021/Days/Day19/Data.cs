@@ -53,14 +53,14 @@ namespace AdventOfCode2021.Days.Day19
         {
             if (this.VisibleBeacons[0].DistanceMap != null) return this;
 
-            var groups = from beacon in this.VisibleBeacons
-                join other in this.VisibleBeacons on 1 equals 1 into others
-                select beacon with
+            var beacons = this.VisibleBeacons;
+
+            var groups = beacons.Select(beacon => beacon with
                 {
-                    DistanceMap = others.Where(other => beacon.Position != other.Position)
+                    DistanceMap = beacons.Where(other => beacon.Position != other.Position)
                         .Select(other => (beacon.Position.Distance(other.Position), other))
                         .ToArray()
-                };
+                });
 
             return this with { VisibleBeacons = groups.ToArray() };
         }
